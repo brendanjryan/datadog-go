@@ -567,9 +567,10 @@ func writeTagString(w io.Writer, tagList1, tagList2 []string) {
 	if totalLen == 0 {
 		return
 	}
-	tags := make([]string, 0, totalLen)
-	tags = append(tags, tagList1...)
-	tags = append(tags, tagList2...)
+	tags := make([]string, totalLen)
+
+	i := copy(tags, tagList1)
+	copy(tags[i:], tagList2)
 
 	io.WriteString(w, "|#")
 	io.WriteString(w, removeNewlines(tags[0]))
